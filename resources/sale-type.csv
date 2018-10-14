@@ -1,0 +1,34 @@
+Code,SaleType,Definition
+01,qualified,Transfers qualified as arm’s length because of examination of the deed or other instrument transferring ownership of real property
+02,qualified,Transfers qualified as arm’s length because of documented evidence
+03,multi parcel,"Transfers qualified as arm’s length at time of transfer, but the physical property characteristics changed significantly after the transfer, or transfer included property characteristics not present at time of transfer (use these subcodes: 1-parcel split, 2-parcel combination, 3-new construction, 4-deletion, 5-disaster, 6-other (multiple changes/incomplete construction, etc), 7-remodel/renovation)"
+04,multi parcel,"Transfers qualified as arm’s length at time of transfer, but the legal characteristics have significantly changed after the transfer"
+05,multi parcel,Arm’s length transaction transferring multiple parcels with multiple parcel identification numbers
+06,multi parcel,Arm’s length transaction transferring a single parcel that crosses one or more county lines
+11,deed transfer,"Corrective deed, quit claim deed, or tax deed; deed bearing Florida Documentary Stamp at the minimum rate prescribed under Chapter 201, F.S.; transfer of ownership where no documentary stamps were paid"
+12,deed transfer,Transfer to or from financial institutions (use transfer code 18 for government entities); deed stating “In Lieu of Foreclosure” (including private lenders)
+13,deed transfer,Transfer conveying cemetery lots or parcels
+14,deed transfer,Transfer containing a reservation of occupancy for more than 90 days (life estate interest)
+15,deed transfer,Removed - not currently accepted; reserved for future use
+16,deed transfer,Transfer conveying ownership of less than 100% undivided interest
+17,deed transfer,"Transfer to or from a religious, charitable, or benevolent organization or entity"
+18,deed transfer,"Transfer to or from a federal, state, or local government agency (including trustees (or board) of the Internal Improvement Trust Fund, courts, counties, municipalities, sheriffs, or educational organizations as well as FDIC, HUD, FANNIE MAE, and FREDDY MAC)"
+19,deed transfer,"Transfer to or from bankruptcy trustees, administrators, executors, guardians, personal representatives, or receivers"
+20,deed transfer,Transfer to or from utility companies
+21,deed transfer,Contract for Deed; Agreement for Deed (does not include Warranty Deed associated with seller financing)
+30,atypical,Transfer between relatives or between corporate affiliates (including landlord-tenant)
+31,atypical,Transfer involving a trade or exchange of land (does not include 1031 exchanges)
+32,atypical,"Transfer involving an abnormal period of time between contract date and sale date (examples: pre-construction sales, pre-development sales)"
+33,atypical,Transfer that included incomplete or unbuilt common property
+34,atypical,Transfer satisfying payment in full of a prior property contract
+35,atypical,Transfer involving atypical amounts of personal property
+36,atypical,Transfer involving atypical costs of sale
+37,atypical,Transfer in which property’s market exposure was atypical; transfer involving participants who were atypically motivated; transfer involving participants who were not knowledgeable or informed of market conditions or property characteristics
+38,atypical,Transfer that was forced or under duress; transfer that was to prevent foreclosure (occurs prior to date shown in judgment order for public sale)
+39,atypical,Transfer in which the consideration paid for real property is verified to be different than the consideration indicated by documentary stamps
+40,atypical,Transfer in which the consideration paid for real property is verified to be significantly influenced by non-market financing or assumption of non-market lease
+41,atypical,Other; requires documentation and prior approval of the Department of Revenue (Code 41 protocol is available at http://dor.myflorida.com/dor/property/rp/dataformats/pdf/code41req.pdf)
+42,atypical,Transfer involving mortgage fraud per a law enforcement agency’s notification of probable cause
+43,atypical,Transfer where the sale price (as the documentary stamps indicate) is verified to be an allocated price as part of a package or bulk transaction
+98,decision pending,"Unable to process transfer because of transfer instrument errors (examples: incomplete or incorrect legal description, incorrect grantor)"
+99,decision pending,Transfer was recorded or otherwise discovered in the previous 90 days and qualification decision is pending; invalid for transfers recorded or otherwise discovered more than 90 days earlier
