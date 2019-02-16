@@ -1,0 +1,118 @@
+FIELD NUMBER,COLUMN,FIELD NAME IN FILE,FIELD TITLE,FIXED/VARIABLE,MAXIMUM LENGTH,NUMERIC,ALPHA-NUMERIC,REQUIRED
+1,A , CO_NO,County Number,fixed length,2,X,,X
+2,B , PARCEL_ID,Parcel Identification Code,variable length,26,,X,X
+3,C , FILE_T,File (Roll) Type,fixed length,1,,X,X
+4,D , ASMNT_YR,Assessment Year,fixed length,4,X,,X
+5,E , BAS_STRT,Basic Stratum,fixed length,2,X,,X
+6,F , ATV_STRT,Active Stratum,fixed length,1,X,,
+7,G , GRP_NO,Group Number,fixed length,1,X,,
+8,H, DOR_UC,DOR Land Use Code,fixed length,3,X,,X
+9,I , PA_UC,Property Appraiser Land Use Code,fixed length,2,X,,
+10,J , SPASS_CD,Special Assessment Code,fixed length,1,X,,
+11,K , JV,Just Value,variable length,12,X,,X
+12,L , JV_CHNG,Just Value Change,variable length,12,X,,
+13,M , JV_CHNG_CD,Just Value Change Code,fixed length,2,X,,
+14,N , AV_SD,Assessed Value – School District,variable length,12,X,,X
+15,O , AV_NSD,Assessed Value – Non-School District,variable length,12,X,,X
+16,P , TV_SD,Taxable Value – School District,variable length,12,X,,X
+17,Q , TV_NSD,Taxable Value – Non-School District,variable length,12,X,,X
+18,R , JV_HMSTD,Just Value – Homestead Property,variable length,12,X,,
+19,S , AV_HMSTD,Assessed Value – Homestead Property,variable length,12,X,,
+20,T , JV_NON_HMSTD_RESD,Just Value – Non-Homestead Residential Property,variable length,12,X,,
+21,U , AV_NON_HMSTD_RESD,Assessed Value – Non-Homestead Residential Property,variable length,12,X,,
+22,V , JV_RESD_NON_RESD,Just Value – Residential and Non-Residential Property,variable length,12,X,,
+23,W , AV_RESD_NON_RESD,Assessed Value – Residential and Non-Residential Property,variable length,12,X,,
+24,X , JV_CLASS_USE,Just Value – Classified Use (Agricultural Land Value),variable length,12,X,,
+25,Y , AV_CLASS_USE,Assessed Value – Classified Use (Agricultural Land Value),variable length,12,X,,
+26,Z , JV_H2O_RECHRGE,Just Value – High-water Recharge (Land Value),variable length,12,X,,
+27,AA , AV_H2O_RECHRGE,Assessed Value – High-water Recharge (Land Value),variable length,12,X,,
+28,AB , JV_CONSRV_LND,Just Value – Conservation Land,variable length,12,X,,
+29,AC , AV_CONSRV_LND,Assessed Value – Conservation Land,variable length,12,X,,
+30,AD , JV_HIST_COM_PROP,Just Value – Historic Commercial Property,variable length,12,X,,
+31,AE , AV_HIST_COM_PROP,Assessed Value – Historic Commercial Property,variable length,12,X,,
+32,AF , JV_HIST_SIGNF,Just Value – Historically Significant Property,variable length,12,X,,
+33,AG , AV_HIST_SIGNF,Assessed Value – Historically Significant Property,variable length,12,X,,
+34,AH , JV_WRKNG_WTRFNT,Just Value – Working Waterfront Property,variable length,12,X,,
+35,AI , AV_ WRKNG_WTRFNT,Assessed Value – Working Waterfront Property,variable length,12,X,,
+36,AJ , NCONST_VAL,New Construction Value,variable length,12,X,,
+37,AK , DEL_VAL,Deletion Value,variable length,12,X,,
+38,AL , PAR_SPLT,Parcel Split/Combine Flag,fixed length,5,X,,
+39,AM , DISTR_CD,Disaster Code,fixed length,TBD,X,,
+40,AN , DISTR_YR,Disaster Year,fixed length,4,X,,
+41,AO , LND_VAL,Land Value,variable length,12,X,,
+42,AP , LND_UNTS_CD,Land Unit Code,fixed length,1,X,,
+43,AQ , NO_LND_UNTS,Number of Land Units,variable length,12,X,,
+44,AR , LND_SQFOOT,Land Square Footage,variable length,12,X,,
+45,AS , DT_LAST_INSPT,Date of Last Physical Inspection,fixed length,4,X,,X
+46,AT , IMP_QUAL,Improvement Quality,fixed length,1,X,,
+47,AU , CONST_CLASS,Construction Class,fixed length,1,X,,
+48,AV , EFF_YR_BLT,Effective Year Built,fixed length,4,X,,
+49,AW , ACT_YR_BLT,Actual Year Built,fixed length,4,X,,
+50,AX , TOT_LVG_AREA,Total Living or Usable Area,variable length,12,X,,
+51,AY , NO_BULDNG,Number of Buildings,variable length,4,X,,
+52,AZ , NO_RES_UNTS,Number of Residential Units,variable length,4,X,,
+53,BA , SPEC_FEAT_VAL,Special Feature Value,variable length,12,X,,
+54,BB , MULTI_PAR_SAL1,Multi-Parcel Sale – Sale 1,fixed length,1,,X,
+55,BC , QUAL_CD1,Qualification Code – Sale 1,fixed length,2,X,,
+56,BD , VI_CD1,Vacant/Improved Code – Sale 1,fixed length,1,,X,
+57,BE , SALE_PRC1,Sale Price – Sale 1,variable length,12,X,,
+58,BF , SALE_YR1,Sale Year – Sale 1,fixed length,4,X,,
+59,BG , SALE_MO1,Sale Month – Sale 1,fixed length,2,X,,
+60,BH , OR_BOOK1,Official Record Book Number – Sale 1,variable length,6,,X,
+61,BI , OR_PAGE1,Official Record Page Number – Sale 1,variable length,6,,X,
+62,BJ , CLERK_NO1,Clerk’s Instrument Number – Sale 1,variable length,20,X,,
+63,BK , SAL_CHNG_CD1,Sale Change Code – Sale 1,fixed length,1,X,,
+64,BL , MULTI_PAR_SAL2,Multi-Parcel – Sale 2,fixed length,1,,X,
+65,BM , QUAL_CD2,Qualification Code – Sale 2,fixed length,2,X,,
+66,BN , VI_CD2,Vacant/Improved Code – Sale 2,fixed length,1,,X,
+67,BO , SALE_PRC2,Sale Price – Sale 2,variable length,12,X,,
+68,BP , SALE_YR2,Sale Year – Sale 2,fixed length,4,X,,
+69,BQ , SALE_MO2,Sale Month – Sale 2,fixed length,2,X,,
+70,BR , OR_BOOK2,Official Record Book Number – Sale 2,variable length,6,,X,
+71,BS , R_PAGE2,Official Record Page Number – Sale 2,variable length,6,,X,
+72,BT , CLERK_NO2,Clerk’s Instrument Number – Sale 2,variable length,20,X,,
+73,BU , SAL_CHNG_CD2,Sale Change Code – Sale 2,fixed length,1,X,,
+74,BV , OWN_NAME,Owner’s Name,variable length,30,,X,X
+75,BW , OWN_ADDR1,Owner’s Mailing Address – Line 1,variable length,40,,X,X
+76,BX , OWN_ADDR2,Owner’s Mailing Address – Line 2,variable length,40,,X,
+77,BY , OWN_CITY,Owner's Mailing Address – City,variable length,40,,X,X
+78,BZ , OWN_STATE,Owner's Mailing Address – State,variable length,25,,X,X
+79,CA , OWN_ZIPCD,Owner's Mailing Address – US ZIP Code,fixed length,5,X,,
+80,CB , OWN_STATE_DOM,Owner’s State of Domicile,fixed length,2,,X,X
+81,CC , FIDU_NAME,Fiduciary's Name,variable length,30,,X,
+82,CD , FIDU_ADDR1,Fiduciary's Mailing Address – Line 1,variable length,40,,X,
+83,CE , FIDU_ADDR2,Fiduciary's Mailing Address – Line 2,variable length,40,,X,
+84,CF , FIDU_CITY,Fiduciary's Mailing Address – City,variable length,40,,X,
+85,CG , FIDU_STATE,Fiduciary's Mailing Address – State,variable length,25,,X,
+86,CH , FIDU_ZIPCD ,Fiduciary's Mailing Address – US ZIP Code,fixed length,5,X,,
+87,CI , FIDU_CD,Fiduciary Code,fixed length,1,X,,
+88,CJ , S_LEGAL,Short Legal Description,variable length,30,,X,X
+89,CK , APP_STAT,Homestead Applicant’s Status,fixed length,1,,X,
+90,CL , CO_APP_STAT,Homestead Co-Applicant’s Status,fixed length,1,,X,
+91,CM , MKT_AR,Market Area Code,variable length,3,,X,X
+92,CN , NBRHD_CD,Neighborhood Code,variable length,10,X,,
+93,CO , PUBLIC_LND,Public Land,fixed length,1,,X,
+94,CP , TAX_AUTH_CD,Taxing Authority Code,variable length,5,,X,X
+95,CQ , TWN,Township Number,fixed length,3,,X,X
+96,CR , RNG,Range Number,fixed length,3,,X,X
+97,CS , SEC,Section or Grant Number,fixed length,3,,X,X
+98,CT , CENSUS_BK,Census Block Group Number,variable length,16,,X,X
+99,CU , PHY_ADDR1,Physical Address – Line 1,variable length,40,,X,X
+100,CV , PHY_ADDR2,Physical Address – Line 2,variable length,40,,X,
+101,CW , PHY_CITY,Physical Location – City,variable length,40,,X,
+102,CX , PHY_ZIPCD,Physical Location – US ZIP Code,fixed length,5,X,,X
+103,CY , ALT_KEY,Alternate Key Number,variable length,26,,X,
+104,CZ , ASS_TRNSFR_FG,Assessment Differential Transfer Flag,fixed length,1,X,,
+105,DA , PREV_HMSTD_OWN,Number of Owners – Previous Homestead,variable length,2,X,,
+106,DB , ASS_DIF_TRNS,Assessment Differential Transferred,variable length,12,X,,
+107,DC , CONO_PRV_HM,County Number Previous Homestead,fixed length,2,X,,
+108,DD , PARCEL_ID_PRV_HMSTD,Parcel ID – Previous Homestead,variable length,26,,X,
+109,DE , YR_VAL_TRNSF,Year Value Transferred,fixed length,4,X,,
+110 – 153,DF – EW, EXMPT_##,Exemptions,variable length,12,X,,
+154,EX , SEQ_NO,File Sequence Number,variable length,7,X,,X
+155,EY, RS_ID,Real Property Submission Identification Code,variable length,4,,X,X
+156,EZ, MP_ID,Master Parcel Identification Code,variable length,8,,X,X
+157,FA, STATE_PAR_ID,Uniform Parcel Identification Code,variable length,18,,X,X
+158,FB, SPC_CIR_CD,Special Circumstances Code,fixed length,1,X,,
+159,FC, SPC_CIR_YR,Special Circumstances Year,fixed length,4,X,,
+160,FD, SPC_CIR_TXT,Special Circumstances Text,variable length,50,,X,
