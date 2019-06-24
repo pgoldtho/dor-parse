@@ -1,2 +1,6 @@
-/resources/FloridaData-4b975a1e9f61.json
+/resources/data
+/src/bigquery/service-account.json
+/src/bigquery/*.swp
+/src/*.swp
+/src/__pycache__/
 /node_modules
