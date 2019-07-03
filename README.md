@@ -17,7 +17,7 @@ some of the fields in the csv files and includes code to load the results into B
 2. Use the shell scripts in src/scripts to unzip and stage them.  The scripts directory contains 2 scripts to generate GeoJSON files from
 the shapefiles.  Use the one named shp2geojson2d.sh if you plan to create BigQuery tables.  It strips the altitude coordinate from the <long, lat, altitude> combination as BigQuery does not support this.
 3. Edit the Global Varables in src/parse_dor.py to identify the staged files
-4. Edit src/parse-dor-files.py file to identity filenames for each county.
+4. Edit src/parse-dor-files.py file to identify filenames for each county.
 5. Run python3 parse-dor-files.py
 6. Load the result to Google Cloud Storage
 7. Create and source a credentials file for upload to BigQuery (see https://cloud.google.com/docs/authentication/getting-started)
