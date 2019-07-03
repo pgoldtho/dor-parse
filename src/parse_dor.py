@@ -126,7 +126,8 @@ def process_files(nal_in, sdf_in, geojson_in):
                 nal_out[parcel_id][key] = value
 
             nal_out[parcel_id]['COUNTY_NAME'] = lookups['county'][row['CO_NO']]
-            nal_out[parcel_id]['USAGE'] = lookups['usage'][row['DOR_UC']]
+            if (row['DOR_UC']):
+                nal_out[parcel_id]['USAGE'] = lookups['usage'][row['DOR_UC']]
             if lookups['sale_type'].get(row['QUAL_CD1'], ''):
                 nal_out[parcel_id]['SALE_TYPE1'] = lookups['sale_type'][row['QUAL_CD1']]
                 nal_out[parcel_id]['SALE_DESC1'] = lookups['sale_desc'][row['QUAL_CD1']]
