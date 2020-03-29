@@ -35,7 +35,7 @@ args=parser.parse_args()
 BASE_DIR = '/home/pgoldtho/git/dor-parse/'
 RESOURCE_DIR = BASE_DIR + 'resources/'
 FILE_DIR = RESOURCE_DIR + 'data/2018/'
-OUT_DIR = RESOURCE_DIR + 'data/2018out2d/'
+OUT_DIR = RESOURCE_DIR + 'data/2018out/'
 NAL_SUBDIR = 'nal/'
 SDF_SUBDIR = 'sdf/'
 GEO_SUBDIR = 'geojson2d/'
@@ -88,6 +88,37 @@ def get_geojson(file_name):
                 geo[parcel_id]['coordinates'] = feature['geometry']['coordinates']
         return geo
 
+#https://github.com/brandonxiang/geojson-python-utils/blob/develop/geojson_utils/geojson_utils.py
+def centroid(poly):
+    """
+    get the centroid of polygon
+    adapted from http://paulbourke.net/geometry/polyarea/javascript.txt
+    Keyword arguments:
+    poly -- polygon geojson object
+    return polygon centroid
+    """
+    f_total = 0
+    x_total = 0
+    y_total = 0
+    # TODO: polygon holes at coordinates[1]
+    points = poly['coordinates'][0]
+    j = len(points) - 1
+    count = len(points)
+
+    for i in range(0, count):
+        p1_x = points[i][1]
+        p1_y = points[i][0]
+        p2_x = points[j][1]
+        p2_y = points[j][0]
+
+        f_total = p1_x * p2_y - p2_x * p1_y
+        x_total += (p1_x + p2_x) * f_total
+        y_total += (p1_y + p2_y) * f_total
+        j = i
+
+    six_area = area(poly) * 6
+    return {'type': 'Point', 'coordinates': [y_total / six_area, x_total / six_area]}
+
 def process_files(nal_in, sdf_in, geojson_in):
     nal_file = FILE_DIR + NAL_SUBDIR + nal_in
     sdf_file = FILE_DIR + SDF_SUBDIR + sdf_in
@@ -110,6 +141,7 @@ def process_files(nal_in, sdf_in, geojson_in):
         nal_fields.append('SALE_DESC2')
         nal_fields.append('PUMA')
         nal_fields.append('GEO_COORDS')
+        nal_fields.append('GEO_CENTROID')
         nal_out = {}
         nal_out['fieldnames'] = nal_fields
         line_count = 0
@@ -118,8 +150,11 @@ def process_files(nal_in, sdf_in, geojson_in):
         for row in nal_data:
             parcel_id = row['PARCEL_ID']
             geo_row = geo.get(parcel_id, "")
+            geo_centroid = ""
             if geo_row:
                 geo_found += 1
+                geo_row = json.dumps(geo_row)
+                geo_centroid = centroid(geo_row)
             nal_out[parcel_id] = {}
 
             for key, value in row.items():
@@ -152,6 +187,7 @@ def process_files(nal_in, sdf_in, geojson_in):
                 nal_out[parcel_id]['PUMA'] = ""
 
             nal_out[parcel_id]['GEO_COORDS'] = geo_row
+            nal_out[parcel_id]['GEO_CENTROID'] = geo_centroid
 
             line_count += 1
         print(f'Read {line_count} rows. Matched {geo_found} geojson records')
@@ -177,6 +213,7 @@ def process_files(nal_in, sdf_in, geojson_in):
             geo_row = geo.get(row['PARCEL_ID'], "")
             if geo_row:
                 geo_found += 1
+                geo_row = json.dumps(geo_row)
             sdf_out[sale_id] = {}
 
             for key, value in row.items():
@@ -226,6 +263,7 @@ def process_dade_condos(nal_in, sdf_in, geojson_in):
             geo_row = geo.get(parcel_id,  row['GEO_COORDS'])
             if geo_row:
                 geo_found += 1
+                geo_row = json.dumps(geo_row)
             nal_out[parcel_id] = {}
 
             for key, value in row.items():
@@ -250,6 +288,7 @@ def process_dade_condos(nal_in, sdf_in, geojson_in):
             geo_row = geo.get(row['PARCEL_ID'], row['GEO_COORDS'])
             if geo_row:
                 geo_found += 1
+                geo_row = json.dumps(geo_row)
             sdf_out[sale_id] = {}
 
             for key, value in row.items():
@@ -269,7 +308,7 @@ def write_file(dict_in, csv_out):
 
     with open(csv_out, mode='w') as output_csv:
         line_count = 0
-        writer = csv.DictWriter(output_csv, fieldnames=dict_in['fieldnames'])
+        writer = csv.DictWriter(output_csv, fieldnames=dict_in['fieldnames'], quotechar="'")
         writer.writeheader()
         for row_id in dict_in:
             if line_count > 0:
