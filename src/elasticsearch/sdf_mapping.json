@@ -1,0 +1,47 @@
+{
+  "settings": {
+    "analysis": {
+      "normalizer": {
+        "uppercase_trim": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": ["uppercase", "asciifolding", "trim"]
+        }
+      }
+    }
+},
+"mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "CO_NO": { "type":"integer"},
+      "PARCEL_ID": { "type":"keyword", "normalizer": "uppercase_trim"},
+      "ASMNT_YR": { "type":"integer"},
+      "ATV_STRT": { "type":"integer"},
+      "GRP_NO": { "type":"integer"},
+      "DOR_UC": { "type":"integer"},
+      "NBRHD_CD": { "type":"keyword"},
+      "MKT_AR": { "type":"keyword"},
+      "CENSUS_BK": { "type":"keyword"},
+      "SALE_ID_CD": { "type":"keyword"},
+      "SAL_CHG_CD": { "type":"integer"},
+      "VI_CD": { "type":"keyword"},
+      "OR_BOOK": { "type":"keyword"},
+      "OR_PAGE": { "type":"keyword"},
+      "CLERK_NO": { "type":"keyword"},
+      "QUAL_CD": { "type":"integer"},
+      "SALE_YR": { "type":"integer"},
+      "SALE_MO": { "type":"integer"},
+      "SALE_PRC": { "type":"integer"},
+      "MULTI_PAR_SAL": { "type":"keyword"},
+      "RS_ID": { "type":"keyword"},
+      "MP_ID": { "type":"keyword"},
+      "STATE_PARCEL_ID": { "type":"keyword"},
+      "COUNTY_NAME": { "type":"keyword"},
+      "USAGE": { "type":"keyword", "normalizer": "uppercase_trim"},
+      "SALE_TYPE": { "type":"keyword", "normalizer": "uppercase_trim"},
+      "SALE_DESC": { "type":"text"},
+      "GEO_COORDS": { "type":"geo_shape"},
+      "GEO_CENTROID": {"type":"geo_point"}
+    }
+  }
+}
