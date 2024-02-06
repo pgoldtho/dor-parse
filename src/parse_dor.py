@@ -34,11 +34,11 @@ args=parser.parse_args()
 ###################################################
 BASE_DIR = '/home/pgoldtho/git/dor-parse/'
 RESOURCE_DIR = BASE_DIR + 'resources/'
-FILE_DIR = RESOURCE_DIR + 'data/2018/'
-OUT_DIR = RESOURCE_DIR + 'data/2018out/'
+FILE_DIR = RESOURCE_DIR + 'data/'
+OUT_DIR = RESOURCE_DIR + 'data/2020out/'
 NAL_SUBDIR = 'nal/'
 SDF_SUBDIR = 'sdf/'
-GEO_SUBDIR = 'geojson2d/'
+GEO_SUBDIR = 'geojson/'
 
 def read_lookup_file(filename):
     with open(RESOURCE_DIR + filename) as lookup_file:
@@ -89,6 +89,31 @@ def get_geojson(file_name):
         return geo
 
 #https://github.com/brandonxiang/geojson-python-utils/blob/develop/geojson_utils/geojson_utils.py
+def area(poly):
+    """
+    calculate the area of polygon
+    Keyword arguments:
+    poly -- polygon geojson object
+    return polygon area
+    """
+    poly_area = 0.0
+    # TODO: polygon holes at coordinates[1]
+    points = poly['coordinates'][0]
+    j = len(points) - 1
+    count = len(points)
+    for i in range(0, count):
+        p1_x = points[i][1]
+        p1_y = points[i][0]
+        p2_x = points[j][1]
+        p2_y = points[j][0]
+
+        poly_area += p1_x * p2_y
+        poly_area -= p1_y * p2_x
+        j = i
+
+    poly_area /= 2.0
+    return poly_area
+
 def centroid(poly):
     """
     get the centroid of polygon
@@ -100,10 +125,16 @@ def centroid(poly):
     f_total = 0
     x_total = 0
     y_total = 0
-    # TODO: polygon holes at coordinates[1]
+
     points = poly['coordinates'][0]
     j = len(points) - 1
     count = len(points)
+
+    # Could be called from multi_centroid with 2 points
+    if count == 2:
+        y = (points[0][0] + points[1][0]) / 2
+        x = (points[0][1] + points[1][1]) /2
+        return {'type': 'Point', 'coordinates': [y , x]}
 
     for i in range(0, count):
         p1_x = points[i][1]
@@ -116,8 +147,26 @@ def centroid(poly):
         y_total += (p1_y + p2_y) * f_total
         j = i
 
-    six_area = area(poly) * 6
+    six_area = area(poly) * 6.0
+    if six_area == 0:
+        return None
+
     return {'type': 'Point', 'coordinates': [y_total / six_area, x_total / six_area]}
+
+def multi_centroid(multi_polygon):
+    """
+    Finds the centroid of each polygon in the MultiPolygon then
+    finds the centroid of the centroids
+    """
+    polygons = multi_polygon['coordinates']
+    count = len(polygons)
+    points = []
+    for i in range(0, count):
+        cent = centroid({'type': 'Polygon','coordinates': polygons[i]})
+        if cent is not None:
+            points.append(cent['coordinates'])
+
+    return centroid({'type': 'Polygon','coordinates': [points]})
 
 def process_files(nal_in, sdf_in, geojson_in):
     nal_file = FILE_DIR + NAL_SUBDIR + nal_in
@@ -153,8 +202,10 @@ def process_files(nal_in, sdf_in, geojson_in):
             geo_centroid = ""
             if geo_row:
                 geo_found += 1
-                geo_row = json.dumps(geo_row)
-                geo_centroid = centroid(geo_row)
+                if geo_row['type'] == 'Polygon':
+                    geo_centroid = centroid(geo_row)
+                if geo_row['type'] == 'MultiPolygon':
+                    geo_centroid = multi_centroid(geo_row)
             nal_out[parcel_id] = {}
 
             for key, value in row.items():
@@ -236,9 +287,13 @@ def process_files(nal_in, sdf_in, geojson_in):
 
 def process_dade_condos(nal_in, sdf_in, geojson_in):
     csv.field_size_limit(sys.maxsize)
+    print(csv.list_dialects())
     geo_file = FILE_DIR + GEO_SUBDIR + geojson_in
-    nal_file = OUT_DIR + NAL_SUBDIR + nal_in
+    nal_file = OUT_DIR + NAL_SUBDIR  + nal_in
     sdf_file = OUT_DIR + SDF_SUBDIR + sdf_in
+    nal_out_file = OUT_DIR + NAL_SUBDIR + 'condo-' + nal_in
+    sdf_out_file = OUT_DIR + SDF_SUBDIR + 'condo-' + sdf_in
+    print(f'Reading coordinates from {geo_file}')
     with open(geo_file) as json_file:
         data = json.load(json_file)
         geo = {}
@@ -251,8 +306,8 @@ def process_dade_condos(nal_in, sdf_in, geojson_in):
                 geo[parcel_id]['coordinates'] = feature['geometry']['coordinates']
 
     print(f'Reading from {nal_file}')
-    with open(nal_file, mode='r') as input_nal:
-        nal_data = csv.DictReader(input_nal)
+    with open(nal_file, mode='r', newline='') as input_nal:
+        nal_data = csv.DictReader(input_nal, restkey='overflow', delimiter='\t')
         nal_out = {}
         nal_out['fieldnames'] = nal_data.fieldnames
         line_count = 0
@@ -273,11 +328,11 @@ def process_dade_condos(nal_in, sdf_in, geojson_in):
             line_count += 1
 
     print(f'Read {line_count} rows. Matched {geo_found} geojson records')
-    write_file(nal_out, nal_file)
+    write_file(nal_out, nal_out_file)
 
     print(f'Reading from {sdf_file}')
     with open(sdf_file, mode='r') as input_sdf:
-        sdf_data = csv.DictReader(input_sdf)
+        sdf_data = csv.DictReader(input_sdf, delimiter='\t')
         sdf_out = {}
         sdf_out['fieldnames'] = sdf_data.fieldnames
         line_count = 0
@@ -298,7 +353,7 @@ def process_dade_condos(nal_in, sdf_in, geojson_in):
             line_count += 1
 
     print(f'Read {line_count} rows. Matched {geo_found} geojson records')
-    write_file(sdf_out, sdf_file)
+    write_file(sdf_out, sdf_out_file)
 
 def write_file(dict_in, csv_out):
     print(f'Writing to {csv_out}')
@@ -308,7 +363,7 @@ def write_file(dict_in, csv_out):
 
     with open(csv_out, mode='w') as output_csv:
         line_count = 0
-        writer = csv.DictWriter(output_csv, fieldnames=dict_in['fieldnames'], quotechar="'")
+        writer = csv.DictWriter(output_csv, fieldnames=dict_in['fieldnames'], quotechar="'", delimiter='\t')
         writer.writeheader()
         for row_id in dict_in:
             if line_count > 0:
